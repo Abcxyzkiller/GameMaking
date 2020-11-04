@@ -22,6 +22,7 @@ public:
 
 private:
 	std::shared_ptr<Sprite2D> m_logo;
+	std::vector<std::shared_ptr<Sprite2D>> m_listObject;
 	float m_time;
 };
 

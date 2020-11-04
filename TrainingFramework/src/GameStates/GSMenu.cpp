@@ -46,6 +46,15 @@ void GSMenu::Init()
 		});
 	m_listButton.push_back(button);
 
+	//resume button 
+	texture = ResourceManagers::GetInstance()->GetTexture("button_resume");
+	std::shared_ptr<GameButton> button2 = std::make_shared<GameButton>(model, shader, texture);
+	button2->Set2DPosition(screenWidth / 2, 400);
+	button2->SetSize(200, 50);
+	button2->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Play);
+		});
+	m_listButton.push_back(button2);
 
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
@@ -82,11 +91,16 @@ void GSMenu::HandleKeyEvents(int key, bool bIsPressed)
 
 void GSMenu::HandleTouchEvents(int x, int y, bool bIsPressed)
 {
-	for (auto it : m_listButton)
+	if (!bIsPressed)
 	{
-		(it)->HandleTouchEvents(x, y, bIsPressed);
-		if ((it)->IsHandle()) break;
+		for (auto it : m_listButton)
+		{
+			(it)->HandleTouchEvents(x, y, bIsPressed);
+			if ((it)->IsHandle()) break;
+		}
 	}
+
+
 }
 
 void GSMenu::Update(float deltaTime)

@@ -8,6 +8,9 @@
 #include "Sprite2D.h"
 #include "Sprite3D.h"
 #include "Text.h"
+#include "SpriteAnimation.h"
+
+
 
 extern int screenWidth; //need get on Graphic engine
 extern int screenHeight; //need get on Graphic engine
@@ -35,11 +38,29 @@ void GSPlay::Init()
 	m_BackGround->SetSize(screenWidth, screenHeight);
 
 
+	//button back
+	texture = ResourceManagers::GetInstance()->GetTexture("button_back");
+	std::shared_ptr<GameButton> button2 = std::make_shared<GameButton>(model, shader, texture);
+	button2->Set2DPosition(screenWidth / 2, 300);
+	button2->SetSize(200, 50);
+	button2->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Menu);
+	});
+	m_listButton2.push_back(button2);
+
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
 	m_score = std::make_shared< Text>(shader, font, "score: 10", TEXT_COLOR::RED, 1.0);
 	m_score->Set2DPosition(Vector2(5, 25));
+
+	// Animation
+	shader = ResourceManagers::GetInstance()->GetShader("Animation");
+	texture = ResourceManagers::GetInstance()->GetTexture("ani2");
+	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 14, 1.0f);
+	obj->Set2DPosition(screenWidth / 2, 500);
+	obj->SetSize(100, 100);
+	m_listSpriteAnimations.push_back(obj);
 }
 
 void GSPlay::Exit()
@@ -66,21 +87,48 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 {
-	
+
 }
 
 void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
 {
+	if (!bIsPressed)
+	{
+		for (auto it : m_listButton2) {
+			(it)->HandleTouchEvents(x, y, bIsPressed);
+			if ((it)->IsHandle()) break;
+		}
+	}
+
 }
 
 void GSPlay::Update(float deltaTime)
 {
+	m_BackGround->Update(deltaTime);
+	for (auto obj : m_listSpriteAnimations)
+	{
+		obj->Update(deltaTime);
+	}
+	for (auto it : m_listButton2)
+	{
+		it->Update(deltaTime);
+	}
+
 }
 
 void GSPlay::Draw()
 {
 	m_BackGround->Draw();
+	for (auto it : m_listButton2)
+	{
+		it->Draw();
+
+	}
 	m_score->Draw();
+	for (auto obj : m_listSpriteAnimations)
+	{
+		obj->Draw();
+	}
 }
 
 void GSPlay::SetNewPostionForBullet()

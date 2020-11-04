@@ -25,6 +25,13 @@ void GSIntro::Init()
 	m_logo = std::make_shared<Sprite2D>(model, shader, texture);
 	m_logo->Set2DPosition(screenWidth / 2, screenHeight / 2);
 	m_logo->SetSize(150, 150);
+
+	texture = ResourceManagers::GetInstance()->GetTexture("Dirt");
+	auto test = std::make_shared<Sprite2D>(model, shader, texture);
+	test->Set2DPosition(screenWidth / 2, 600);
+	test->SetSize(80, 80);
+
+	m_listObject.push_back(test);
 }
 
 void GSIntro::Exit()
@@ -72,4 +79,8 @@ void GSIntro::Update(float deltaTime)
 void GSIntro::Draw()
 {
 	m_logo->Draw();
+	for (auto obj : m_listObject)
+	{
+		obj->Draw();
+	}
 }

@@ -9,6 +9,7 @@
 #include "Sprite3D.h"
 #include "Text.h"
 #include "SpriteAnimation.h"
+#include "GameConfig.h"
 
 
 
@@ -45,6 +46,7 @@ void GSPlay::Init()
 	button2->SetSize(200, 50);
 	button2->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Menu);
+		//GameStateMachine::GetInstance()->PopState();
 	});
 	m_listButton2.push_back(button2);
 
@@ -56,10 +58,10 @@ void GSPlay::Init()
 
 	// Animation
 	shader = ResourceManagers::GetInstance()->GetShader("Animation");
-	texture = ResourceManagers::GetInstance()->GetTexture("ani2");
-	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 14, 1.0f);
-	obj->Set2DPosition(screenWidth / 2, 500);
-	obj->SetSize(100, 100);
+	texture = ResourceManagers::GetInstance()->GetTexture("ani4");
+	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 14, 0.07f);
+	obj->Set2DPosition(screenWidth / 4, 500);
+	obj->SetSize(200, 200);
 	m_listSpriteAnimations.push_back(obj);
 }
 
@@ -87,7 +89,11 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 {
-
+	if (key == KEY_UP && !bIsPressed)
+	{
+		m_listSpriteAnimations[0]->Set2DPosition(screenWidth / 4, m_listSpriteAnimations[0]->Get2DPosition().y - 100);
+		printf_s("da nhan nut \n");
+	}
 }
 
 void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)

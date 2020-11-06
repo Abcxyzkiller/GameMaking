@@ -166,3 +166,11 @@ void SpriteAnimation::SetSize(GLint width, GLint height)
 	m_Vec3Scale = Vector3((float)m_iWidth / screenWidth, (float)m_iHeight / screenHeight, 1);
 	CaculateWorldMatrix();
 }
+void SpriteAnimation::HandleKeyEvents(int key, bool bIsPressed)
+{
+	if (bIsPressed == KEY_UP)
+	{
+		Set2DPosition(500, 500);
+		printf_s("da nhan nut \n");
+	}
+}

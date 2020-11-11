@@ -32,12 +32,15 @@ public:
 	void SetNewPostionForBullet();
 
 private:
-
+	int keyCheck = 0;
+	double deltamove;
 	std::shared_ptr<Sprite2D> m_BackGround;
+	std::shared_ptr<Sprite2D> m_BackGround2;
 	std::shared_ptr<Text>  m_score;
 	std::list<std::shared_ptr<GameButton>>	m_listButton2;
 	std::vector < std::shared_ptr<Sprite2D>> m_listSprite2D;
 	std::vector < std::shared_ptr<SpriteAnimation>> m_listSpriteAnimations;
+	
 
 };
 

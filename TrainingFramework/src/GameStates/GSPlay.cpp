@@ -15,6 +15,8 @@
 
 extern int screenWidth; //need get on Graphic engine
 extern int screenHeight; //need get on Graphic engine
+extern int screenLand;
+extern int screenSky;
 
 GSPlay::GSPlay()
 {
@@ -29,15 +31,23 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
-	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play");
 
-	//BackGround
+	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("backgroundCity");
+
+	//BackGround1
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	m_BackGround = std::make_shared<Sprite2D>(model, shader, texture);
 	m_BackGround->Set2DPosition(screenWidth / 2, screenHeight / 2);
-	m_BackGround->SetSize(screenWidth, screenHeight);
+	m_BackGround->SetSize(screenWidth, 257);
+	m_listSprite2D.push_back(m_BackGround);
 
+	//Background2
+	auto shader2 = ResourceManagers::GetInstance()->GetShader("TextureShader");
+	m_BackGround2 = std::make_shared<Sprite2D>(model, shader2, texture);
+	m_BackGround2->Set2DPosition(1.5f*screenWidth - 1,screenHeight / 2);
+	m_BackGround2->SetSize(screenWidth, 257);
+	m_listSprite2D.push_back(m_BackGround2);
 
 	//button back
 	texture = ResourceManagers::GetInstance()->GetTexture("button_back");
@@ -60,8 +70,8 @@ void GSPlay::Init()
 	shader = ResourceManagers::GetInstance()->GetShader("Animation");
 	texture = ResourceManagers::GetInstance()->GetTexture("ani4");
 	std::shared_ptr<SpriteAnimation> obj = std::make_shared<SpriteAnimation>(model, shader, texture, 14, 0.07f);
-	obj->Set2DPosition(screenWidth / 4, 500);
-	obj->SetSize(200, 200);
+	obj->Set2DPosition(screenWidth / 4, screenLand);
+	obj->SetSize(100, 100);
 	m_listSpriteAnimations.push_back(obj);
 }
 
@@ -89,11 +99,16 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 {
-	if (key == KEY_UP && !bIsPressed)
+	
+	if (key == KEY_UP && bIsPressed)
 	{
-		m_listSpriteAnimations[0]->Set2DPosition(screenWidth / 4, m_listSpriteAnimations[0]->Get2DPosition().y - 100);
-		printf_s("da nhan nut \n");
+		keyCheck = key;
+		
 	}
+	else {
+		keyCheck = 0;
+	}
+	
 }
 
 void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
@@ -110,9 +125,29 @@ void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
 
 void GSPlay::Update(float deltaTime)
 {
-	m_BackGround->Update(deltaTime);
+	if (keyCheck) {
+		
+			m_listSpriteAnimations[0]->Set2DPosition(screenWidth / 4, screenLand + 100 );
+	}
+
+	deltamove = 100 * deltaTime;
+	for (auto bg : m_listSprite2D)
+	{
+		if (bg->Get2DPosition().x >= -screenWidth/2)
+		{
+			bg->Set2DPosition(bg->Get2DPosition().x - deltamove, screenHeight / 2);
+		}
+		else
+		{
+			bg->Set2DPosition(1.5f*screenWidth - 5, screenHeight / 2);
+		}
+		bg->Update(deltaTime);
+		
+	}
+
 	for (auto obj : m_listSpriteAnimations)
 	{
+
 		obj->Update(deltaTime);
 	}
 	for (auto it : m_listButton2)
@@ -124,7 +159,10 @@ void GSPlay::Update(float deltaTime)
 
 void GSPlay::Draw()
 {
-	m_BackGround->Draw();
+	for (auto bg : m_listSprite2D)
+	{
+		bg->Draw();
+	}
 	for (auto it : m_listButton2)
 	{
 		it->Draw();

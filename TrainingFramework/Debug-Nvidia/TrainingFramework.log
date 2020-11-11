@@ -1,18 +1,1 @@
-﻿  GSPlay.cpp
-d:\documents\20201\thuc tap\visual studio 2015\projects\gamemaking\trainingframework\src\gamestates\gsplay.cpp(37): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\documents\20201\thuc tap\visual studio 2015\projects\gamemaking\trainingframework\src\gamestates\gsplay.cpp(44): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\documents\20201\thuc tap\visual studio 2015\projects\gamemaking\trainingframework\src\gamestates\gsplay.cpp(61): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\program files (x86)\microsoft visual studio 14.0\vc\include\memory(901): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  d:\program files (x86)\microsoft visual studio 14.0\vc\include\memory(971): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
-          with
-          [
-              _Ty=Text
-          ]
-  d:\program files (x86)\microsoft visual studio 14.0\vc\include\memory(971): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
-          with
-          [
-              _Ty=Text
-          ]
-  d:\documents\20201\thuc tap\visual studio 2015\projects\gamemaking\trainingframework\src\gamestates\gsplay.cpp(54): note: see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
-  TrainingFramework.vcxproj -> D:\Documents\20201\Thuc tap\visual studio 2015\Projects\GameMaking\\BIN-Nvidia\TrainingFramework.exe
-  TrainingFramework.vcxproj -> D:\Documents\20201\Thuc tap\visual studio 2015\Projects\GameMaking\\BIN-Nvidia\TrainingFramework.pdb (Full PDB)
+﻿

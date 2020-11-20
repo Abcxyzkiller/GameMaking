@@ -47,19 +47,19 @@ void GSMenu::Init()
 	m_listButton.push_back(button);
 
 	//resume button 
-	texture = ResourceManagers::GetInstance()->GetTexture("button_resume");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_setting");
 	std::shared_ptr<GameButton> button2 = std::make_shared<GameButton>(model, shader, texture);
 	button2->Set2DPosition(screenWidth / 2, 400);
 	button2->SetSize(200, 50);
 	button2->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Play);
+		
 		});
 	m_listButton.push_back(button2);
 
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
-	m_Text_gameName = std::make_shared< Text>(shader, font, "SAMPLE NAME", TEXT_COLOR::GREEN, 1.0);
+	m_Text_gameName = std::make_shared< Text>(shader, font, "GODZILLA", TEXT_COLOR::WHILE, 1.0);
 	m_Text_gameName->Set2DPosition(Vector2(screenWidth / 2 - 80, 120));
 }
 

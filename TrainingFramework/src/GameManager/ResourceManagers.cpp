@@ -16,10 +16,60 @@ ResourceManagers::ResourceManagers()
 	m_TexturePath = dataPath + "Textures\\";
 	m_ModelsPath = dataPath + "Model\\";
 	m_FontPath = dataPath + "fonts\\";
+	//Sound
+	m_SoundsPath = dataPath + "Sounds\\";
+	SoLoud::Soloud m_Soloud;
+	m_Soloud.init();
 }
 
 ResourceManagers::~ResourceManagers()
 {
+	m_Soloud.deinit();
+}
+
+void ResourceManagers::AddSound(const std::string& name)
+{
+	auto it = m_MapWave.find(name);
+	if (it != m_MapWave.end())
+	{
+		return;
+	}
+	SoLoud::Wav wave;
+	std::string wav = m_SoundsPath + name + ".wav";
+	wave = SoLoud::Wav();
+	wave.load(wav.c_str());
+	m_MapWave.insert(std::pair<std::string, SoLoud::Wav>(name, wave));
+
+}
+
+void ResourceManagers::PlaySound(const std::string& name, bool loop)
+{
+	SoLoud::Wav wave;
+	auto it = m_MapWave.find(name);
+	if (it != m_MapWave.end())
+	{
+		wave = it->second;
+	}
+	else
+	{
+		std::string wav = m_SoundsPath + name + ".wav";
+		wave = SoLoud::Wav();
+		wave.load(wav.c_str());
+		m_MapWave.insert(std::pair<std::string, SoLoud::Wav>(name, wave));
+
+	}
+	m_Soloud.play(wave);
+}
+
+void ResourceManagers::PauseSound(const std::string& name)
+{
+	SoLoud::Wav wave;
+	auto it = m_MapWave.find(name);
+	if (it != m_MapWave.end())
+	{
+		wave = it->second;
+	}
+	m_Soloud.stopAudioSource(wave);
 }
 
 void ResourceManagers::AddShader(const std::string& name)

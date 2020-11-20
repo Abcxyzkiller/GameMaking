@@ -5,8 +5,8 @@
 
 GLint screenWidth = 1300;
 GLint screenHeight = 731;
-GLint screenLand = 450;
-GLint screenSky = 330;
+GLint screenLand = 440;
+GLint screenSky = 300;
 
 
 GLint Init(ESContext* esContext)
@@ -61,7 +61,7 @@ GLint _tmain(GLint argc, _TCHAR* argv[])
 	CleanUp();
 
 	//identifying memory leaks
-	MemoryDump();
+	//MemoryDump();
 	//printf("Press any key...\n");
 	//_getch();
 

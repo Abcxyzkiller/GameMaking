@@ -28,7 +28,7 @@ void CustomFree(void * p);
 #endif
 
 //memory dump section
-void MemoryDump();
+//void MemoryDump();
 
 //sanity check
 void SanityCheck();
